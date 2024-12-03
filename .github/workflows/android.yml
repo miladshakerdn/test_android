@@ -26,13 +26,14 @@ jobs:
         run: chmod +x android/gradlew # تغییر مسیر به android/gradlew
 
       - name: Build with Gradle
-        run: ./android/gradlew build # تغییر مسیر به android/gradlew
+        working-directory: android # تغییر دایرکتوری کاری به android
+        run: ./gradlew build # اجرای Gradle در دایرکتوری android
 
       - name: Archive APK
         if: success()
         run: |
           mkdir -p output
-          cp android/app/build/outputs/apk/debug/app-debug.apk output/ # تغییر مسیر به APK در android
+          cp app/build/outputs/apk/debug/app-debug.apk output/ # مسیر به APK در android
 
       - name: Upload APK
         uses: actions/upload-artifact@v3
